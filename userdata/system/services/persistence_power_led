@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Persists the power LED mode on reboot.
+
+LED_STATE="/var/run/led_state"
+
+case "$1" in
+    start)
+        POWER_LED_MODE="$(batocera-settings-get powerled.mode)"
+
+        # power-led:
+        # - 0: on
+        # - 1: auto / in-game
+        # - 2: off
+        # We need to do some magic because calling power-led will cycle
+        # from 0 -> 1 -> 2 -> 0 -> ...
+        # So we need to prep LED_STATE with the prior
+        if [[ -n "$POWER_LED_MODE" ]]; then
+            case "$POWER_LED_MODE" in
+                0)
+                    echo "2" > "$LED_STATE"
+                    ;;
+                1)
+                    echo "0" > "$LED_STATE"
+                    ;;
+                2)
+                    echo "1" > "$LED_STATE"
+                    ;;
+            esac
+
+            # Cycle to the next mode (our desired mode)
+            power-led
+        fi
+        ;;
+    stop)
+        POWER_LED_MODE="$(< "$LED_STATE")"
+        batocera-settings-set powerled.mode "$POWER_LED_MODE"
+        ;;
+    *)
+        # Code in here will be executed in all other conditions.
+        echo "Usage: $0 {start|stop}"
+        ;;
+esac
+
+exit $?

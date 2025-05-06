@@ -1,0 +1,6 @@
+## NIGHT-MODE
+default:
+  # shader affects retroarch shaders
+  shader: night-mode
+  # scanline affect fba2x
+  scanline: false

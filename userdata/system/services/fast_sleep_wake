@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Turns on/off the display much quicker.
+
+SLEEP_HOOK_FILE="/etc/pm/sleep.d/10-display-off"
+SLEEP_HOOK_CODE="$(cat <<EOF
+#!/bin/bash
+case "\$1" in
+    suspend|hibernate)
+        echo disable > /sys/kernel/debug/dispdbg/command
+        echo lcd0 > /sys/kernel/debug/dispdbg/name
+        echo 1 > /sys/kernel/debug/dispdbg/start
+        ;;
+    resume|thaw)
+	echo enable > /sys/kernel/debug/dispdbg/command
+        echo lcd0 > /sys/kernel/debug/dispdbg/name
+        echo 1 > /sys/kernel/debug/dispdbg/start
+        ;;
+esac
+EOF
+)"
+
+case "$1" in
+    start)
+        # Inject sleep.d hook file.
+        echo "$SLEEP_HOOK_CODE" > "$SLEEP_HOOK_FILE"
+        chmod +x "$SLEEP_HOOK_FILE"
+        ;;
+    stop)
+        # Remove sleep.d hook file.
+        rm "$SLEEP_HOOK_FILE"
+        ;;
+    *)
+        # Code in here will be executed in all other conditions.
+        echo "Usage: $0 {start|stop}"
+        ;;
+esac
+
+exit $?
