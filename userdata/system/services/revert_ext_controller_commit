@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Reverts the commit that messes up external USB controller bindings.
+
+CONTROLLER_PY="/usr/lib/python3.12/site-packages/configgen/controller.py"
+CONTROLLER_PATCHED_PY="/userdata/system/custom/controller.patched.py"
+
+case "$1" in
+    start)
+        # Backup controller.py for later.
+        cp "$CONTROLLER_PY" "$CONTROLLER_PY.bk"
+
+        # Copy patched controller.py.
+        cp "$CONTROLLER_PATCHED_PY" "$CONTROLLER_PY"
+        ;;
+    stop)
+        # Restore controller.py.bk.
+        mv "$CONTROLLER_PY.bk" "$CONTROLLER_PY"
+        ;;
+    *)
+        # Code in here will be executed in all other conditions.
+        echo "Usage: $0 {start|stop}"
+        ;;
+esac
+
+exit $?

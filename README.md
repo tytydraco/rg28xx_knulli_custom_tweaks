@@ -20,7 +20,7 @@ A simple shader preset that can be enabled in `Start -> Game Settings -> Game Re
 Activate system-wide night mode by pressing `Menu+Vol Up+Vol Down`.
 
 - /userdata/system/configs/scripts/multimedia_keys.conf
-- /userdata/system/scripts/blue_light_filter.sh
+- /userdata/system/custom/blue_light_filter.sh
 
 ### Fast Sleep/Wake Display Hack
 
@@ -39,3 +39,10 @@ Persists the LED mode between reboots. Enable in `Start -> System Settings -> Se
 Persists the display temperature between reboots. Works with the Night Mode Display Filter. Enable in `Start -> System Settings -> Services -> PERSISTENCE_TEMPERATURE`.
 
 - /userdata/system/services/persistence_temperature
+
+### Revert External Controller Commit
+
+Reverts a [commit](https://github.com/knulli-cfw/distribution/commit/95f0b3bed205516579f5405c9a8c020e085a8250) that breaks external USB controller RetroArch bindings.
+
+- /userdata/system/custom/controller.patched.py
+- /userdata/system/services/revert_ext_controler_commit
