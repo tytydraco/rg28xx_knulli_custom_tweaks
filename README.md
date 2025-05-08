@@ -26,6 +26,7 @@ Activate system-wide night mode by pressing `Menu+Vol Up+Vol Down`.
 
 Sleeps and wakes the display more quickly when the power key is pressed. Enable in `Start -> System Settings -> Services -> FAST_SLEEP_WAKE`.
 
+- /userdata/system/custom/10-display-off
 - /userdata/system/services/fast_sleep_wake
 
 ### Persist Power LED Mode
