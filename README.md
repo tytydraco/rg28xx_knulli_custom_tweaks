@@ -45,7 +45,7 @@ Persists the display temperature between reboots. Works with the Night Mode Disp
 
 Reverts a [commit](https://github.com/knulli-cfw/distribution/commit/95f0b3bed205516579f5405c9a8c020e085a8250) that breaks external USB controller RetroArch bindings.
 
-- /userdata/system/custom/controller.patched.py
+- /userdata/system/custom/revert-ext-controller-commit.patch
 - /userdata/system/services/revert_ext_controler_commit
 
 ### Busybox

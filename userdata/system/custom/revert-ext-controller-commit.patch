@@ -1,0 +1,31 @@
+--- /usr/lib/python3.12/site-packages/configgen/controller.py	2025-05-08 19:36:20.000000006 -0700
++++ controller.patched.py	2025-05-07 16:38:33.000000000 -0700
+@@ -186,23 +186,11 @@
+     def load_for_players(cls, max_players: int, args: Namespace, /) -> ControllerDict:
+         all_controllers = cls.load_all()
+ 
+-        controller_list = []
+-        for player_number in range(1, max_players + 1):
+-            controller = cls.find_best_controller_config(all_controllers, args, player_number)
+-            if controller:
+-                controller_list.append(controller)
+-
+-        # If there's more than one controller safe to assume the first is internal and remove it
+-        if len(controller_list) > 1:
+-            controller_list.pop(0)
+-
+-        # Reassign player numbers
+-        controllers: ControllerDict = {}
+-        for i, ctrl in enumerate(controller_list[:max_players], start=1):
+-            ctrl.player_number = i
+-            controllers[i] = ctrl
+-
+-        return controllers
++        return {
++            controller.player_number: controller
++            for player_number in range(1, max_players + 1)
++            if (controller := cls.find_best_controller_config(all_controllers, args, player_number)) is not None
++        }
+ 
+     @classmethod
+     def find_best_controller_config(

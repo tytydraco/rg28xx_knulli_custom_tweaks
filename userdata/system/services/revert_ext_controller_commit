@@ -2,16 +2,17 @@
 
 # Reverts the commit that messes up external USB controller bindings.
 
+BUSYBOX="/userdata/system/custom/busybox"
 CONTROLLER_PY="/usr/lib/python3.12/site-packages/configgen/controller.py"
-CONTROLLER_PATCHED_PY="/userdata/system/custom/controller.patched.py"
+PATCH_FILE="/userdata/system/custom/revert-ext-controller-commit.patch"
 
 case "$1" in
     start)
         # Backup controller.py for later.
         cp "$CONTROLLER_PY" "$CONTROLLER_PY.bk"
 
-        # Copy patched controller.py.
-        cp "$CONTROLLER_PATCHED_PY" "$CONTROLLER_PY"
+        # Patch controller.py.
+        "$BUSYBOX" patch "$CONTROLLER_PY" "$PATCH_FILE"
         ;;
     stop)
         # Restore controller.py.bk.
