@@ -47,3 +47,9 @@ Reverts a [commit](https://github.com/knulli-cfw/distribution/commit/95f0b3bed20
 
 - /userdata/system/custom/controller.patched.py
 - /userdata/system/services/revert_ext_controler_commit
+
+### Busybox
+
+Adds a statically-compiled busybox binary for use with other scripts.
+
+- /userdata/system/custom/busybox
