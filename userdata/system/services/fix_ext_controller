@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Updates controller.py to the fixed version.
+
+CONTROLLER_PY="/usr/lib/python3.12/site-packages/configgen/controller.py"
+FIXED_CONTROLLER_PY="/userdata/system/custom/controller.fixed.py"
+
+case "$1" in
+    start)
+        # Backup controller.py for later.
+        cp "$CONTROLLER_PY" "$CONTROLLER_PY.bk"
+
+        # Copy fixed controller.py.
+        cp "$FIXED_CONTROLLER_PY" "$CONTROLLER_PY"
+        ;;
+    stop)
+        # Restore controller.py.bk.
+        mv "$CONTROLLER_PY.bk" "$CONTROLLER_PY"
+        ;;
+    *)
+        # Code in here will be executed in all other conditions.
+        echo "Usage: $0 {start|stop}"
+        ;;
+esac
+
+exit $?
