@@ -50,6 +50,6 @@ Reverts a [commit](https://github.com/knulli-cfw/distribution/commit/95f0b3bed20
 
 ### Busybox
 
-Adds a statically-compiled busybox binary for use with other scripts.
+Adds a [statically-compiled busybox binary](https://github.com/tytydraco/busybox_static_arm64) for use with other scripts.
 
 - /userdata/system/custom/busybox
