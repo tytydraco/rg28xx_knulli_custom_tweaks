@@ -8,19 +8,23 @@ FIXED_CONTROLLER_PY="/userdata/system/custom/controller.fixed.py"
 case "$1" in
     start)
         # Backup controller.py for later.
-        cp "$CONTROLLER_PY" "$CONTROLLER_PY.bk"
+        mv "$CONTROLLER_PY" "$CONTROLLER_PY.bk" 
 
-        # Copy fixed controller.py.
-        cp "$FIXED_CONTROLLER_PY" "$CONTROLLER_PY"
+        # Link fixed controller.py.
+        ln -s "$FIXED_CONTROLLER_PY" "$CONTROLLER_PY"
         ;;
     stop)
-        # Restore controller.py.bk.
-        mv "$CONTROLLER_PY.bk" "$CONTROLLER_PY"
+        # Remove symlink.
+        rm "$CONTROLLER_PY"
+
+    # Restore controller.py.bk.
+    mv "$CONTROLLER_PY.bk" "$CONTROLLER_PY"
         ;;
     *)
         # Code in here will be executed in all other conditions.
         echo "Usage: $0 {start|stop}"
         ;;
+
 esac
 
 exit $?
