@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Speeds up volume and brightness changes.
+
+VOLUME_BUTTON="/usr/bin/volume-button"
+VOLUME_BUTTON_FAST="/userdata/system/custom/volume-button-fast"
+
+case "$1" in
+    start)
+        # Backup volume-button for later.
+        mv "$VOLUME_BUTTON" "$VOLUME_BUTTON.bk" 
+
+        # Link new volume-button.
+        ln -s "$VOLUME_BUTTON_FAST" "$VOLUME_BUTTON"
+        ;;
+    stop)
+        # Remove symlink.
+        rm "$VOLUME_BUTTON"
+
+        # Restore volume-button.bk.
+        mv "$VOLUME_BUTTON.bk" "$VOLUME_BUTTON"
+        ;;
+    *)
+        # Code in here will be executed in all other conditions.
+        echo "Usage: $0 {start|stop}"
+        ;;
+esac
+
+exit $?

@@ -55,6 +55,13 @@ Updates the controller assignment code to the beta version.
 - /userdata/system/custom/controller.fixed.py
 - /userdata/system/services/fix_ext_controller
 
+### Fast Volume Keys
+
+Speeds up volume and brightness changes.
+
+- /userdata/system/custom/volume-keys-fast
+- /userdata/system/services/fast_volume_keys
+
 ### Busybox
 
 Adds a [statically-compiled busybox binary](https://github.com/tytydraco/busybox_static_arm64) for use with other scripts.

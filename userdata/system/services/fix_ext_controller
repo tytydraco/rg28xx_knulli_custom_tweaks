@@ -17,8 +17,8 @@ case "$1" in
         # Remove symlink.
         rm "$CONTROLLER_PY"
 
-    # Restore controller.py.bk.
-    mv "$CONTROLLER_PY.bk" "$CONTROLLER_PY"
+        # Restore controller.py.bk.
+        mv "$CONTROLLER_PY.bk" "$CONTROLLER_PY"
         ;;
     *)
         # Code in here will be executed in all other conditions.
